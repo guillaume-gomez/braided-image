@@ -18,21 +18,40 @@ function Canvas({ image1, image2 }: CanvasInterface) {
       if(!context) {
         throw new Error("cannot find context 2d on the canvas component");
       }
-      context.drawImage(image2,0,0, image1.width, image1.height,0,0, minWidth, minHeight);
-      drawBraid(context, image1, 40, 80, minHeight/2);
+      canvasRef.current.width = minWidth;
+      canvasRef.current.height = minHeight;
+      draw(context, image1.width, image1.height);
+      //drawBraid(context, image1, 40, 80, minHeight/2);
       //ctx.drawImage(image, sx, sy, sLargeur, sHauteur, dx, dy, dLargeur, dHauteur);
     }
-    setWidth(minWidth);
-    setHeight(minHeight);
+    //setWidth(minWidth);
+    //setHeight(minHeight);
   }, [image1, image2]);
 
-  function drawBraid(context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, widthBraid: number, minHeight: number) {
+  function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
+    context.clearRect(0,0, width, height);
+    console.log(image1.width)
+    console.log(image1.height)
+    context.drawImage(image1,0,0, image1.width, image1.height, 0, 0, widthCanvas, heightCanvas);
+    drawBraid(context, image2);
+  }
+
+  function drawBraid(context: CanvasRenderingContext2D, image: HTMLImageElement) {
     const braidSize = Math.floor(Math.random() * 40);
-    context.drawImage(image, 0, 0, image.width, image.height, x, 0, widthBraid, minHeight)
+    let y = 0;
+    let x = 200;
+    while(y < height) {
+      drawBraidPart(context, image2, x, y, 40, 50);
+      y += 50;
+    }
+  }
+
+  function drawBraidPart(context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, widthBraid: number, heightBraid: number) {
+    context.drawImage(image, x, y, widthBraid, heightBraid, x, y, widthBraid, heightBraid);
   }
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} style={{background: "teal"}}/>
+    <canvas ref={canvasRef} width={width} height={height} style={{border: "2px solid teal"}}/>
   );
 }
 
