@@ -56,14 +56,13 @@ function App() {
   }
 
   function loadImage(event: React.ChangeEvent<HTMLInputElement>, type: imageType) {
-/*    if(event && event.target && event.target.files) {
+    if(event && event.target && event.target.files) {
       const file = event.target.files[0];
-      resize(file, 400,500)
-    }*/
+      resize(file, 600, 400);
+    }
     if(event && event.target && event.target.files) {
       const image = new Image();
       image.onload = (event: any) => {
-        console.log(type)
         if(type === "image1") {
           setImage1(image);
         } else {
