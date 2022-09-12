@@ -5,6 +5,8 @@ interface CanvasInterface {
   image2: HTMLImageElement;
 }
 
+const HOLE_SIZE = 4;
+
 function Canvas({ image1, image2 }: CanvasInterface) {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
@@ -28,42 +30,68 @@ function Canvas({ image1, image2 }: CanvasInterface) {
     //setHeight(minHeight);
   }, [image1, image2]);
 
+  // TODO
+  // partir d'un image vide
+  // faire deux boucles
+  // donc une qui fait je rends une ligne (deja fait)
+  // et l'autre qui rend une colone(a faire)
+
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
     context.clearRect(0,0, width, height);
-    //console.log(image1.width)
-    //console.log(image1.height)
-    context.drawImage(image1,0,0, image1.width, image1.height, 0, 0, widthCanvas, heightCanvas);
-    let x = 0;
-    while(x < widthCanvas) {
-      drawBraid(context, image2, x, heightCanvas);
-      x += 80;
-
+    //context.drawImage(image1,0,0, image1.width, image1.height, 0, 0, widthCanvas, heightCanvas);
+    const widthBraid = 50;
+    const heightBraid = 50;
+    const spacing = 50;
+    let direction = 1;
+    for(let x = 0; x < widthCanvas; x += (widthBraid)) {
+      for(let y = 0; y <heightCanvas; y += (2*heightBraid)) {
+        // drawCol
+         if(direction === 1) {
+           drawSquare(context, image1, x, y, widthBraid, heightBraid);
+           drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid);
+         }
+         else {
+           drawSquare(context, image2, x , y, widthBraid, heightBraid);
+           drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid);
+         }
+      }
+      direction *= -1;
     }
-    //drawBraidPart(context, image2, 50,60, 80,  60);
   }
 
-  function drawBraid(context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, height: number) {
-    const braidSize = Math.floor(Math.random() * 100);
-    let y = 0;
-    const heightCross = 50;
-    while(y < height) {
-      drawBraidPart(context, image2, x, y, 40, heightCross);
-      y += heightCross + 20;
-    }
-  }
 
-
-  function drawBraidPart(context: CanvasRenderingContext2D, image: HTMLImageElement, x: number, y: number, widthBraid: number, heightBraid: number) {
+  function drawSquare(
+      context: CanvasRenderingContext2D,
+      image: HTMLImageElement,
+      x: number,
+      y: number,
+      widthBraid: number,
+      heightBraid: number,
+      
+    ) {
     context.drawImage(image, x, y, widthBraid, heightBraid, x, y, widthBraid, heightBraid);
+    
+    // draw line to mimic shadows
+    context.lineWidth = 2;
+/*    context.strokeStyle = '#000000';
     context.beginPath();
-    context.moveTo(x,y);
+    context.moveTo(x, y);
     context.lineTo(x, y + heightBraid);
-    context.stroke();
-    context.moveTo(x + widthBraid,y);
+    context.moveTo(x + widthBraid, y);
     context.lineTo(x + widthBraid, y + heightBraid);
-    context.stroke();
-    //context.strokeRect(x-1, y, widthBraid, heightBraid-4);
+    context.stroke();*/
+
+    //draw hole between the braids
+/*    context.rect(x, y, HOLE_SIZE, HOLE_SIZE);
+    context.rect(x + widthBraid - HOLE_SIZE, y, HOLE_SIZE, HOLE_SIZE);
+    context.rect(x, y + heightBraid - HOLE_SIZE, HOLE_SIZE, HOLE_SIZE);
+    context.rect(x + widthBraid - HOLE_SIZE, y + heightBraid - HOLE_SIZE, HOLE_SIZE, HOLE_SIZE);
+    context.fill();*/
+
+    context.strokeRect(x - 1,y -1, widthBraid, heightBraid);
+
   }
+
 
   return (
     <canvas ref={canvasRef} width={width} height={height} style={{border: "5px solid teal"}}/>
