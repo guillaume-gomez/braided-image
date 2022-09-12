@@ -23,22 +23,12 @@ function Canvas({ image1, image2 }: CanvasInterface) {
       canvasRef.current.width = minWidth;
       canvasRef.current.height = minHeight;
       draw(context, image1.width, image1.height);
-      //drawBraid(context, image1, 40, 80, minHeight/2);
-      //ctx.drawImage(image, sx, sy, sLargeur, sHauteur, dx, dy, dLargeur, dHauteur);
     }
-    //setWidth(minWidth);
-    //setHeight(minHeight);
   }, [image1, image2]);
-
-  // TODO
-  // partir d'un image vide
-  // faire deux boucles
-  // donc une qui fait je rends une ligne (deja fait)
-  // et l'autre qui rend une colone(a faire)
 
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
     context.clearRect(0,0, width, height);
-    //context.drawImage(image1,0,0, image1.width, image1.height, 0, 0, widthCanvas, heightCanvas);
+    
     const widthBraid = 50;
     const heightBraid = 50;
     const spacing = 50;
@@ -47,12 +37,12 @@ function Canvas({ image1, image2 }: CanvasInterface) {
       for(let y = 0; y <heightCanvas; y += (2*heightBraid)) {
         // drawCol
          if(direction === 1) {
-           drawSquare(context, image1, x, y, widthBraid, heightBraid);
-           drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid);
+          drawSquare(context, image1, x, y, widthBraid, heightBraid, widthBraid - HOLE_SIZE, heightBraid);
+          drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid, widthBraid, heightBraid - HOLE_SIZE);
          }
          else {
-           drawSquare(context, image2, x , y, widthBraid, heightBraid);
-           drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid);
+          drawSquare(context, image2, x , y, widthBraid, heightBraid, widthBraid, heightBraid - HOLE_SIZE);
+          drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid, widthBraid - HOLE_SIZE, heightBraid);
          }
       }
       direction *= -1;
@@ -65,31 +55,15 @@ function Canvas({ image1, image2 }: CanvasInterface) {
       image: HTMLImageElement,
       x: number,
       y: number,
+      widthViewport: number,
+      heightViewport: number,
       widthBraid: number,
       heightBraid: number,
       
     ) {
-    context.drawImage(image, x, y, widthBraid, heightBraid, x, y, widthBraid, heightBraid);
-    
-    // draw line to mimic shadows
-    context.lineWidth = 2;
-/*    context.strokeStyle = '#000000';
-    context.beginPath();
-    context.moveTo(x, y);
-    context.lineTo(x, y + heightBraid);
-    context.moveTo(x + widthBraid, y);
-    context.lineTo(x + widthBraid, y + heightBraid);
-    context.stroke();*/
-
-    //draw hole between the braids
-/*    context.rect(x, y, HOLE_SIZE, HOLE_SIZE);
-    context.rect(x + widthBraid - HOLE_SIZE, y, HOLE_SIZE, HOLE_SIZE);
-    context.rect(x, y + heightBraid - HOLE_SIZE, HOLE_SIZE, HOLE_SIZE);
-    context.rect(x + widthBraid - HOLE_SIZE, y + heightBraid - HOLE_SIZE, HOLE_SIZE, HOLE_SIZE);
-    context.fill();*/
-
-    context.strokeRect(x - 1,y -1, widthBraid, heightBraid);
-
+    const middleHoleSizeX = (widthViewport - widthBraid) / 2;
+    const middleHoleSizeY = (heightViewport - heightBraid) / 2;
+    context.drawImage(image, x, y, widthViewport, heightViewport, x + middleHoleSizeX, y + middleHoleSizeY, widthBraid, heightBraid);
   }
 
 
