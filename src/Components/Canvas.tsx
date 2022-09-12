@@ -3,11 +3,10 @@ import React, { useState, useEffect, useRef } from 'react';
 interface CanvasInterface {
   image1: HTMLImageElement;
   image2: HTMLImageElement;
+  padding: number;
 }
 
-const HOLE_SIZE = 4;
-
-function Canvas({ image1, image2 }: CanvasInterface) {
+function Canvas({ image1, image2, padding }: CanvasInterface) {
   const [width, setWidth] = useState<number>(0);
   const [height, setHeight] = useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -37,12 +36,12 @@ function Canvas({ image1, image2 }: CanvasInterface) {
       for(let y = 0; y <heightCanvas; y += (2*heightBraid)) {
         // drawCol
          if(direction === 1) {
-          drawSquare(context, image1, x, y, widthBraid, heightBraid, widthBraid - HOLE_SIZE, heightBraid);
-          drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid, widthBraid, heightBraid - HOLE_SIZE);
+          drawSquare(context, image1, x, y, widthBraid, heightBraid, widthBraid - padding, heightBraid);
+          drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid, widthBraid, heightBraid - padding);
          }
          else {
-          drawSquare(context, image2, x , y, widthBraid, heightBraid, widthBraid, heightBraid - HOLE_SIZE);
-          drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid, widthBraid - HOLE_SIZE, heightBraid);
+          drawSquare(context, image2, x , y, widthBraid, heightBraid, widthBraid, heightBraid - padding);
+          drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid, widthBraid - padding, heightBraid);
          }
       }
       direction *= -1;
