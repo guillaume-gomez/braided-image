@@ -1,17 +1,22 @@
 import React, { useState, useRef } from 'react';
-
+import InputRange from './InputRange';
 import InputImage from "./InputImage";
 
 interface FormProps {
-  onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement) => void;
+  onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement, padding: number) => void;
 }
+
+const MAX_WIDTH = 1200;
+const MAX_HEIGHT = 900;
 
 type imageType = "image1" | "image2";
 
 function Form({onSubmit} : FormProps) {
   const [image1, setImage1] = useState<HTMLImageElement|null>(null);
   const [image2, setImage2] = useState<HTMLImageElement|null>(null);
-
+  const [width, setWidth] = useState<number>(600);
+  const [height, setHeight] = useState<number>(400);
+  const [padding, setPadding] = useState<number>(4);
   const refResizedImage = useRef<HTMLImageElement>(null);
 
   function isFormValid() : boolean {
@@ -22,7 +27,7 @@ function Form({onSubmit} : FormProps) {
     if(!isFormValid()) {
       return;
     }
-    onSubmit(image1!, image2!);
+    onSubmit(image1!, image2!, padding);
   }
 
   function resize(file: File, width: number, height:number) {
@@ -39,7 +44,7 @@ function Form({onSubmit} : FormProps) {
             canvas.height = height;
 
             // Change the resizing logic
-/*            if (width > height) {
+            if (width > height) {
                 if (width > MAX_WIDTH) {
                     height = height * (MAX_WIDTH / width);
                     width = MAX_WIDTH;
@@ -49,7 +54,7 @@ function Form({onSubmit} : FormProps) {
                     width = width * (MAX_HEIGHT / height);
                     height = MAX_HEIGHT;
                 }
-            }*/
+            }
 
             // var canvas = document.getElementById("canvas");
             const ctx = canvas.getContext("2d");
@@ -94,6 +99,9 @@ function Form({onSubmit} : FormProps) {
       <InputImage onChange={(event) =>loadImage(event, "image1")}/>
       <InputImage onChange={(event) =>loadImage(event, "image2")}/>
       <img id="preview" ref={refResizedImage}></img>
+      <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
+      <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
+      <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
       <button
         className="btn btn-primary"
         disabled={!isFormValid()}
