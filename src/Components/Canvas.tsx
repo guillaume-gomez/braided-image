@@ -33,12 +33,13 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
     const spacing = 50;
     let direction = 1;
     for(let x = 0; x < widthCanvas; x += (widthBraid)) {
-      for(let y = 0; y <heightCanvas; y += (2*heightBraid)) {
-        // drawCol
+      for(let y = 0; y < heightCanvas; y += (2*heightBraid)) {
+         // drawCol
          if(direction === 1) {
           drawSquare(context, image1, x, y, widthBraid, heightBraid, widthBraid - padding, heightBraid);
           drawSquare(context, image2, x, y + heightBraid, widthBraid, heightBraid, widthBraid, heightBraid - padding);
          }
+         // drawRow
          else {
           drawSquare(context, image2, x , y, widthBraid, heightBraid, widthBraid, heightBraid - padding);
           drawSquare(context, image1, x , y + heightBraid, widthBraid, heightBraid, widthBraid - padding, heightBraid);
@@ -67,7 +68,7 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
 
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} style={{border: "5px solid teal"}}/>
+    <canvas ref={canvasRef} width={width} height={height} style={{border: "5px solid teal", background: "black"}}/>
   );
 }
 
