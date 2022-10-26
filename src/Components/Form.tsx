@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import InputRange from './InputRange';
 import InputImage from "./InputImage";
+import UploadImage from "./UploadImage";
 
 interface FormProps {
   onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement, padding: number) => void;
@@ -88,19 +89,24 @@ function Form({onSubmit} : FormProps) {
   }
 
   return (
-    <div className="">
-      <InputImage onChange={(event) =>loadImage(event, "image1")}/>
-      <InputImage onChange={(event) =>loadImage(event, "image2")}/>
-      <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
-      <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
-      <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
-      <button
-        className="btn btn-primary"
-        disabled={!isFormValid()}
-        onClick={submit}
-      >
-        Submit
-      </button>
+    <div className="card w-96 bg-base-200 shadow-xl p-4">
+      <div className="card-body items-center text-center">
+        <h2 className="card-title">Settings</h2>
+        <UploadImage onChange={(event) =>loadImage(event, "image1")}/>
+        <UploadImage onChange={(event) =>loadImage(event, "image2")}/>
+        <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
+        <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
+        <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
+      </div>
+      <div className="card-actions">
+        <button
+          className="btn btn-primary"
+          disabled={!isFormValid()}
+          onClick={submit}
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }
