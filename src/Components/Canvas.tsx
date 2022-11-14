@@ -90,7 +90,7 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
 
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} style={{border: "5px solid teal", background: "black"}}/>
+    <canvas ref={canvasRef} width={width} height={height} style={{background: "black"}}/>
   );
 }
 
