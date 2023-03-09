@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "ABeeZee-Regular";
+  src: local("ABeeZee-Regular"),
+    url("./Fonts/ABeeZee-Regular.ttf") format("truetype");
+}
+
+@layer base {
+  html {
+    font-family: 'ABeeZee-Regular', sans-serif;
+  }
+}
