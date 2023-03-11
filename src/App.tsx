@@ -4,6 +4,7 @@ import InputImage from "./Components/InputImage";
 import Form from "./Components/Form";
 import Canvas from "./Components/Canvas";
 import Drawer from "./Components/Drawer";
+import Card from "./Components/Card";
 import Footer from "./Components/Footer";
 
 function App() {
@@ -18,20 +19,19 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col h-screen justify-between">
+    <div  className="flex flex-col h-screen justify-between">
       <Drawer/>
-      <div className="mb-auto flex sm:flex-row flex-col items-center justify-between p-2 gap-3">
-        <Form onSubmit={onSubmit} />
-        <div className="card bg-base-200 shadow-xl h-full w-full">
-          <div className="card-body items-center text-center">
-            <h2 className="card-title">Result</h2>
-            {
-              image1 && image2 ?
-              <Canvas image1={image1} image2={image2} padding={padding} /> :
-              <progress className="progress progress-accent w-56"></progress>
-            }
-          </div>
-        </div>
+      <div className="w-screen md:m-auto w-full h-full flex sm:flex-row flex-col items-center justify-between p-5 gap-5">
+        <Card title="Settings" basisClass="md:basis-1/4 basis-2/5">
+          <Form onSubmit={onSubmit} />
+        </Card>
+        <Card title="Result" basisClass="md:basis-3/4 basis-3/5">
+          {
+            image1 && image2 ?
+            <Canvas image1={image1} image2={image2} padding={padding} /> :
+            <progress className="progress progress-accent w-56"></progress>
+          }
+        </Card>
       </div>
       <Footer/>
     </div>

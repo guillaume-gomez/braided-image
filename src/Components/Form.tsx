@@ -105,25 +105,21 @@ function Form({onSubmit} : FormProps) {
   }
 
   return (
-    <div className="card w-96 bg-base-200 shadow-xl p-4">
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">Settings</h2>
-        <UploadImage image={image1} onChange={(event) =>loadImage(event, "image1")}/>
-        <UploadImage image={image2} onChange={(event) =>loadImage(event, "image2")}/>
-        <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
-        <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
-        <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
-      </div>
-      <div className="card-actions">
-        <button
-          className="btn btn-primary"
-          disabled={!isFormValid()}
-          onClick={submit}
-        >
-          Generate 🚀
-        </button>
-      </div>
-    </div>
+    <>
+      <UploadImage image={image1} onChange={(event) =>loadImage(event, "image1")}/>
+      <UploadImage image={image2} onChange={(event) =>loadImage(event, "image2")}/>
+      <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
+      <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
+      <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
+
+      <button
+        className="btn btn-primary"
+        disabled={!isFormValid()}
+        onClick={submit}
+      >
+        Generate 🚀
+      </button>
+    </>
   );
 }
 
