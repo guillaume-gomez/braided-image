@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+// image1 and image2 has the same size
 interface CanvasInterface {
   image1: HTMLImageElement;
   image2: HTMLImageElement;
@@ -7,8 +8,6 @@ interface CanvasInterface {
 }
 
 function Canvas({ image1, image2, padding }: CanvasInterface) {
-  const [width, setWidth] = useState<number>(0);
-  const [height, setHeight] = useState<number>(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -23,10 +22,10 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
       canvasRef.current.height = minHeight;
       draw(context, image1.width, image1.height);
     }
-  }, [image1, image2]);
+  }, [image1, image2, padding]);
 
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
-    context.clearRect(0,0, width, height);
+    context.clearRect(0,0, widthCanvas, heightCanvas);
     
     const widthBraid = 50;
     const heightBraid = 50;
@@ -90,7 +89,7 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
 
 
   return (
-    <canvas ref={canvasRef} width={width} height={height} style={{background: "black"}}/>
+    <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
   );
 }
 
