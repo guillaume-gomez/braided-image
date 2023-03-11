@@ -1,7 +1,5 @@
 import React, { useState, useRef } from 'react';
 
-import InputImage from "./InputImage";
-
 interface InputRangeProps {
   min: number;
   max: number;
@@ -13,7 +11,7 @@ interface InputRangeProps {
 
 function InputRange({min, max, value, step, label, onChange } : InputRangeProps) {
   return (
-    <div>
+    <div className="card bg-base-300 p-3">
       <input
         type="range"
         min={min}

@@ -7,7 +7,7 @@ interface UploadImageInterface {
 
 function UploadImage({onChange, image} : UploadImageInterface) {
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 card bg-base-300 p-3">
       <button className="btn btn-primary flex flex-row items-center gap-3 relative">
         <svg fill="#FFF" height="18" viewBox="0 0 24 24" width="18" xmlns="http://www.w3.org/2000/svg">
           <path d="M0 0h24v24H0z" fill="none"/>

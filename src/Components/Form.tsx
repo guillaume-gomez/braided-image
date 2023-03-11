@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import InputRange from './InputRange';
-import InputImage from "./InputImage";
 import UploadImage from "./UploadImage";
 
 interface FormProps {

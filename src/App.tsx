@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
-import InputImage from "./Components/InputImage";
 import Form from "./Components/Form";
 import Canvas from "./Components/Canvas";
 import Drawer from "./Components/Drawer";
