@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { format as formatFns } from "date-fns";
 
 // image1 and image2 has the same size
 interface CanvasInterface {
@@ -9,6 +10,7 @@ interface CanvasInterface {
 
 function Canvas({ image1, image2, padding }: CanvasInterface) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const anchorRef = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const minWidth = Math.min(image1.width, image2.width);
@@ -87,22 +89,37 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
     context.fillRect(x,y, widthBraid, heightBraid);
   }
 
+  function saveImage() {
+    if(canvasRef.current && anchorRef.current) {
+      const format = "jpeg";
+      const dataURL = canvasRef.current.toDataURL(`image/${format}`);
+      const dateString = formatFns(new Date(), "dd-MM-yyyy-hh-mm");
+      (anchorRef.current as any).download = `${dateString}-image-in-images.${format}`;
+      anchorRef.current.href = dataURL.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+    }
+  }
+
   const paddingFrame = 20;
   return (
-    <div style={{
-          border: `${paddingFrame * 2}px solid black`,
-          width: image1.width + (paddingFrame * 6),
-          height: image1.height + (paddingFrame * 6)
-          }}
-    >
+    <div className="flex flex-col gap-2 items-start">
       <div style={{
-          border: `${paddingFrame}px solid white`,
-          width: image1.width + (paddingFrame * 2),
-          height: image1.height + (paddingFrame * 2)
-          }}
-        >
-        <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+            border: `${paddingFrame * 2}px solid black`,
+            width: image1.width + (paddingFrame * 6),
+            height: image1.height + (paddingFrame * 6)
+            }}
+      >
+        <div style={{
+            border: `${paddingFrame}px solid white`,
+            width: image1.width + (paddingFrame * 2),
+            height: image1.height + (paddingFrame * 2)
+            }}
+          >
+          <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+        </div>
       </div>
+      <a ref={anchorRef} className="btn btn-primary" onClick={ () => saveImage()}>
+        Save as image 🖼️
+      </a>
     </div>
   );
 }
