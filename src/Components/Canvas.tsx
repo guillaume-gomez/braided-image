@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { format as formatFns } from "date-fns";
 
 // image1 and image2 has the same size
@@ -6,9 +6,10 @@ interface CanvasInterface {
   image1: HTMLImageElement;
   image2: HTMLImageElement;
   padding: number;
+  wovenColor: string;
 }
 
-function Canvas({ image1, image2, padding }: CanvasInterface) {
+function Canvas({ image1, image2, padding, wovenColor }: CanvasInterface) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const anchorRef = useRef<HTMLAnchorElement>(null);
 
@@ -24,14 +25,17 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
       canvasRef.current.height = minHeight;
       draw(context, image1.width, image1.height);
     }
-  }, [image1, image2, padding]);
+  }, [image1, image2, padding, wovenColor]);
 
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
     context.clearRect(0,0, widthCanvas, heightCanvas);
+    // set woven color
+    context.rect(0, 0, widthCanvas, heightCanvas);
+    context.fillStyle = wovenColor;
+    context.fill();
     
     const widthBraid = 50;
     const heightBraid = 50;
-    const spacing = 50;
     let direction = 1;
     for(let x = 0; x < widthCanvas; x += (widthBraid)) {
       for(let y = 0; y < heightCanvas; y += (2*heightBraid)) {
@@ -101,7 +105,12 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
 
   const paddingFrame = 20;
   return (
-    <div className="flex flex-col gap-2 items-start">
+    <div
+      className="flex flex-col gap-2 items-start"
+        style={{
+          width: image1.width + (paddingFrame * 6) + 32,
+        }}
+      >
       <div style={{
             border: `${paddingFrame * 2}px solid black`,
             width: image1.width + (paddingFrame * 6),

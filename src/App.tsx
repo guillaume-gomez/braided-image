@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import Form from "./Components/Form";
 import Canvas from "./Components/Canvas";
@@ -9,12 +9,14 @@ import Footer from "./Components/Footer";
 function App() {
   const [image1, setImage1] = useState<HTMLImageElement|null>(null);
   const [image2, setImage2] = useState<HTMLImageElement|null>(null);
-  const [padding, setPadding] = useState<number>(2);
+  const [padding, setPadding] = useState<number>(4);
+  const [wovenColor, setWovenColor] = useState<string>("#000000");
 
-  function onSubmit(image1: HTMLImageElement, image2: HTMLImageElement, padding: number) {
+  function onSubmit(image1: HTMLImageElement, image2: HTMLImageElement, padding: number, wovenColor: string) {
     setImage1(image1);
     setImage2(image2);
     setPadding(padding);
+    setWovenColor(wovenColor);
   }
 
   return (
@@ -29,7 +31,12 @@ function App() {
 
             image1 && image2 ?
             <div>
-              <Canvas image1={image1} image2={image2} padding={padding} />
+              <Canvas
+                image1={image1}
+                image2={image2}
+                padding={padding}
+                wovenColor={wovenColor}
+              />
             </div> :
             <div>
               <p>Nothing to render yet</p>

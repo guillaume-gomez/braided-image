@@ -3,7 +3,7 @@ import React from 'react';
 function Drawer() {
   return (
     <div className="navbar py-4 bg-primary text-base shadow-xl drop-shadow-xl">
-     <img className="rounded-sm" src={process.env.PUBLIC_URL + '/logo192.png'} width="64px" />
+     <img className="rounded-sm" src={process.env.PUBLIC_URL + '/logo192.png'} width="64px" alt="app logo" />
       <div className="px-2 mx-2 navbar-start flex flex-col gap-1 items-start">
         <span className="text-3xl font-bold">
           Woven images

@@ -89,7 +89,7 @@ function UploadImage({onChange, image} : UploadImageInterface) {
       </button>
       {
         image ?
-          <img src={image.src}/>
+          <img src={image.src} alt="preview image"/>
           :
           <span>No preview</span>
       }

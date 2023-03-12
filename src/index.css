@@ -14,4 +14,7 @@
   }
 }
 
+[data-theme="mytheme"] .range {
+  height: 16px;
+}
 
