@@ -87,9 +87,23 @@ function Canvas({ image1, image2, padding }: CanvasInterface) {
     context.fillRect(x,y, widthBraid, heightBraid);
   }
 
-
+  const paddingFrame = 20;
   return (
-    <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+    <div style={{
+          border: `${paddingFrame * 2}px solid black`,
+          width: image1.width + (paddingFrame * 6),
+          height: image1.height + (paddingFrame * 6)
+          }}
+    >
+      <div style={{
+          border: `${paddingFrame}px solid white`,
+          width: image1.width + (paddingFrame * 2),
+          height: image1.height + (paddingFrame * 2)
+          }}
+        >
+        <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+      </div>
+    </div>
   );
 }
 

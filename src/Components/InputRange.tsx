@@ -11,7 +11,7 @@ interface InputRangeProps {
 
 function InputRange({min, max, value, step, label, onChange } : InputRangeProps) {
   return (
-    <div className="card bg-base-300 p-3">
+    <div className="flex flex-col gap-2 card bg-base-300 p-3">
       <input
         type="range"
         min={min}

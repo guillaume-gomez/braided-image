@@ -6,8 +6,8 @@ interface FormProps {
   onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement, padding: number) => void;
 }
 
-const MAX_WIDTH = 1200;
-const MAX_HEIGHT = 900;
+const MAX_WIDTH = 1200 * 2;
+const MAX_HEIGHT = 900 * 2;
 
 type imageType = "image1" | "image2";
 
@@ -17,7 +17,6 @@ function Form({onSubmit} : FormProps) {
   const [width, setWidth] = useState<number>(600);
   const [height, setHeight] = useState<number>(400);
   const [padding, setPadding] = useState<number>(4);
-  const [blackAndWhite, setBlackAndWhite] = useState<boolean>(false);
 
   useEffect(() => {
     if(image1 && image2) {
@@ -38,23 +37,6 @@ function Form({onSubmit} : FormProps) {
       return;
     }
     onSubmit(image1!, image2!, padding);
-  }
-
-  function resize(file: File, width: number, height:number, type: imageType) {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-        // store as image the file to be sent to the canvas
-        const img = document.createElement("img");
-        img.onload = function (event) {
-            const resizedImage = resizeImage(img, width, height);
-            resizedImageCallback(resizedImage, type);
-        }
-        if(e.target) {
-          // in order to call the onload callback
-          (img as any).src = e.target.result;
-        }
-    }
-    reader.readAsDataURL(file);
   }
 
   function resizeImage(image: HTMLImageElement, expectedWidth: number, expectedHeight: number) : HTMLImageElement {
@@ -88,31 +70,29 @@ function Form({onSubmit} : FormProps) {
       return resizedImage;
   }
 
-  function loadImage(event: React.ChangeEvent<HTMLInputElement>, type: imageType) {
-    if(event && event.target && event.target.files) {
-      const file = event.target.files[0];
-      resize(file, width, height, type);
-    }
+  function loadImage(image: HTMLImageElement, type: imageType) {
+    const resizedImage = resizeImage(image, width, height);
+    resizedImageCallback(resizedImage, type);
   }
 
   function resizedImageCallback(image: HTMLImageElement, type: imageType) {
-      if(type === "image1") {
-        setImage1(image);
-      } else {
-        setImage2(image);
-      }
+    if(type === "image1") {
+      setImage1(image);
+    } else {
+      setImage2(image);
+    }
   }
 
   return (
     <>
-      <UploadImage image={image1} onChange={(event) =>loadImage(event, "image1")}/>
-      <UploadImage image={image2} onChange={(event) =>loadImage(event, "image2")}/>
+      <UploadImage image={image1} onChange={(image) =>loadImage(image, "image1")}/>
+      <UploadImage image={image2} onChange={(image) =>loadImage(image, "image2")}/>
       <InputRange value={width} label={"Width"} onChange={(value) => setWidth(value)} step={5} min={10} max={MAX_WIDTH} />
       <InputRange value={height} label={"Height"} onChange={(value) => setHeight(value)} step={5} min={10} max={MAX_HEIGHT} />
       <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
 
       <button
-        className="btn btn-primary"
+        className="btn btn-lg btn-accent"
         disabled={!isFormValid()}
         onClick={submit}
       >

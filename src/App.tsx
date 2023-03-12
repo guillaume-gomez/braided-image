@@ -18,17 +18,23 @@ function App() {
   }
 
   return (
-    <div  className="flex flex-col h-screen justify-between">
+    <div  className="flex flex-col gap-7 bg-base-100">
       <Drawer/>
-      <div className="w-screen md:m-auto w-full h-full flex sm:flex-row flex-col items-center justify-between p-5 gap-5">
+      <div className="p-5 flex md:flex-row flex-col flex-grow gap-5">
         <Card title="Settings" basisClass="md:basis-1/4 basis-2/5">
           <Form onSubmit={onSubmit} />
         </Card>
         <Card title="Result" basisClass="md:basis-3/4 basis-3/5">
           {
+
             image1 && image2 ?
-            <Canvas image1={image1} image2={image2} padding={padding} /> :
-            <progress className="progress progress-accent w-56"></progress>
+            <div>
+              <Canvas image1={image1} image2={image2} padding={padding} />
+            </div> :
+            <div>
+              <p>Nothing to render yet</p>
+              <progress className="progress progress-accent"></progress>
+            </div>
           }
         </Card>
       </div>
