@@ -7,9 +7,10 @@ interface CanvasInterface {
   image2: HTMLImageElement;
   padding: number;
   wovenColor: string;
+  knitSize?: number;
 }
 
-function Canvas({ image1, image2, padding, wovenColor }: CanvasInterface) {
+function Canvas({ image1, image2, padding, wovenColor, knitSize = 50 }: CanvasInterface) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const anchorRef = useRef<HTMLAnchorElement>(null);
 
@@ -25,7 +26,7 @@ function Canvas({ image1, image2, padding, wovenColor }: CanvasInterface) {
       canvasRef.current.height = minHeight;
       draw(context, image1.width, image1.height);
     }
-  }, [image1, image2, padding, wovenColor]);
+  }, [image1, image2, padding, wovenColor, knitSize]);
 
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
     context.clearRect(0,0, widthCanvas, heightCanvas);
@@ -34,8 +35,8 @@ function Canvas({ image1, image2, padding, wovenColor }: CanvasInterface) {
     context.fillStyle = wovenColor;
     context.fill();
     
-    const widthBraid = 50;
-    const heightBraid = 50;
+    const widthBraid = knitSize;
+    const heightBraid = knitSize;
     let direction = 1;
     for(let x = 0; x < widthCanvas; x += (widthBraid)) {
       for(let y = 0; y < heightCanvas; y += (2*heightBraid)) {
