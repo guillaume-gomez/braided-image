@@ -1,6 +1,7 @@
 {
-  "name": "braids-images",
+  "name": "woven images",
   "author": "Guillaume Gomez <guillaume.gomez846@gmail.com>",
+  "homepage": "https://guillaume-gomez.github.io/woven-images",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +14,7 @@
     "@types/react-dom": "^18.0.6",
     "daisyui": "^2.20.0",
     "date-fns": "^2.29.3",
+    "gh-pages": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -20,6 +22,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
