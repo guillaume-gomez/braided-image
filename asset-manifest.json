@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/woven-images/static/css/main.37bc7361.css",
+    "main.js": "/woven-images/static/js/main.085b4861.js",
+    "static/js/787.7104b2b5.chunk.js": "/woven-images/static/js/787.7104b2b5.chunk.js",
+    "static/media/ABeeZee-Regular.ttf": "/woven-images/static/media/ABeeZee-Regular.567c41f153027117352b.ttf",
+    "index.html": "/woven-images/index.html",
+    "main.37bc7361.css.map": "/woven-images/static/css/main.37bc7361.css.map",
+    "main.085b4861.js.map": "/woven-images/static/js/main.085b4861.js.map",
+    "787.7104b2b5.chunk.js.map": "/woven-images/static/js/787.7104b2b5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.37bc7361.css",
+    "static/js/main.085b4861.js"
+  ]
+}
