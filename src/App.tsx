@@ -12,13 +12,15 @@ function App() {
   const [padding, setPadding] = useState<number>(4);
   const [knitSize, setKnitSize] = useState<number>(50);
   const [wovenColor, setWovenColor] = useState<string>("#000000");
+  const [hasFrame, setHasFrame] = useState<boolean>(true);
 
-  function onSubmit(image1: HTMLImageElement, image2: HTMLImageElement, padding: number, knitSize: number, wovenColor: string) {
+  function onSubmit(image1: HTMLImageElement, image2: HTMLImageElement, padding: number, knitSize: number, wovenColor: string, hasFrame: boolean) {
     setImage1(image1);
     setImage2(image2);
     setPadding(padding);
     setKnitSize(knitSize);
     setWovenColor(wovenColor);
+    setHasFrame(hasFrame);
   }
 
   return (
@@ -34,6 +36,7 @@ function App() {
             image1 && image2 ?
             <div>
               <Canvas
+                hasFrame={hasFrame}
                 image1={image1}
                 image2={image2}
                 padding={padding}

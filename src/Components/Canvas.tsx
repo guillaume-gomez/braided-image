@@ -8,9 +8,10 @@ interface CanvasInterface {
   padding: number;
   wovenColor: string;
   knitSize?: number;
+  hasFrame: boolean;
 }
 
-function Canvas({ image1, image2, padding, wovenColor, knitSize = 50 }: CanvasInterface) {
+function Canvas({ image1, image2, padding, wovenColor, hasFrame, knitSize = 50 }: CanvasInterface) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const anchorRef = useRef<HTMLAnchorElement>(null);
 
@@ -26,7 +27,7 @@ function Canvas({ image1, image2, padding, wovenColor, knitSize = 50 }: CanvasIn
       canvasRef.current.height = minHeight;
       draw(context, image1.width, image1.height);
     }
-  }, [image1, image2, padding, wovenColor, knitSize]);
+  }, [image1, image2, padding, wovenColor, knitSize, hasFrame]);
 
   function draw(context: CanvasRenderingContext2D, widthCanvas: number, heightCanvas: number) {
     context.clearRect(0,0, widthCanvas, heightCanvas);
@@ -104,29 +105,41 @@ function Canvas({ image1, image2, padding, wovenColor, knitSize = 50 }: CanvasIn
     }
   }
 
-  const paddingFrame = 20;
-  return (
-    <div
-      className="flex flex-col gap-2 items-start"
-        style={{
-          width: image1.width + (paddingFrame * 6) + 32,
-        }}
-      >
-      <div style={{
+  function renderResult() {
+    if(hasFrame) {
+      const paddingFrame = 20;
+      return(
+        <div
+          className=""
+            style={{
+              width: image1.width + (paddingFrame * 6) + 32,
+            }}
+          >
+          <div style={{
             border: `${paddingFrame * 2}px solid black`,
             width: image1.width + (paddingFrame * 6),
             height: image1.height + (paddingFrame * 6)
             }}
-      >
-        <div style={{
-            border: `${paddingFrame}px solid white`,
-            width: image1.width + (paddingFrame * 2),
-            height: image1.height + (paddingFrame * 2)
-            }}
           >
-          <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+            <div style={{
+                border: `${paddingFrame}px solid white`,
+                width: image1.width + (paddingFrame * 2),
+                height: image1.height + (paddingFrame * 2)
+                }}
+              >
+                <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+            </div>
+          </div>
         </div>
-      </div>
+      );
+    } else  {
+      return <canvas ref={canvasRef} width={image1.width} height={image1.height} style={{background: "black"}}/>
+    }
+  }
+
+  return (
+    <div className="flex flex-col gap-2 items-start">
+      {renderResult()}
       <a ref={anchorRef} className="btn btn-primary" onClick={ () => saveImage()}>
         Save as image 🖼️
       </a>

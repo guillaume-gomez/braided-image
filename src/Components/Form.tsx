@@ -4,7 +4,7 @@ import UploadImage from "./UploadImage";
 import InputColor from "./InputColor";
 
 interface FormProps {
-  onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement, padding: number, knitSize: number, wovenColor: string) => void;
+  onSubmit : (image1: HTMLImageElement, image2: HTMLImageElement, padding: number, knitSize: number, wovenColor: string, hasFrame: boolean) => void;
 }
 
 const MAX_WIDTH = 1200 * 2;
@@ -20,6 +20,7 @@ function Form({onSubmit} : FormProps) {
   const [padding, setPadding] = useState<number>(4);
   const [knitSize, setKnitSize] = useState<number>(50);
   const [wovenColor, setWovenColor] = useState<string>("#000000");
+  const [hasFrame, setHasFrame] = useState<boolean>(false);
 
   useEffect(() => {
     if(image1 && image2) {
@@ -29,7 +30,7 @@ function Form({onSubmit} : FormProps) {
       setImage1(resizedImage1);
       setImage2(resizedImage2);
     }
-  }, [width, height])
+  }, [width, height]);
 
   function isFormValid() : boolean {
     return !!(image1 && image2);
@@ -39,7 +40,7 @@ function Form({onSubmit} : FormProps) {
     if(!isFormValid()) {
       return;
     }
-    onSubmit(image1!, image2!, padding, knitSize, wovenColor);
+    onSubmit(image1!, image2!, padding, knitSize, wovenColor, hasFrame);
   }
 
   function resizeImage(image: HTMLImageElement, expectedWidth: number, expectedHeight: number) : HTMLImageElement {
@@ -95,6 +96,14 @@ function Form({onSubmit} : FormProps) {
       <InputRange value={padding} label={"Padding"} onChange={(value) => setPadding(value)} step={1} min={2} max={100} />
       <InputRange value={knitSize} label={"KnitSize"} onChange={(value) => setKnitSize(value)} step={5} min={10} max={100} />
       <InputColor value={wovenColor} label={"Woven Color"} onChange={(value) => setWovenColor(value)} />
+      <div className="flex flex-col gap-2 card bg-base-300 p-3">
+        <div className="form-control">
+          <label className="label cursor-pointer">
+            <span className="label-text">With Frame</span>
+            <input type="checkbox" className="toggle" checked={hasFrame} onClick={() => setHasFrame(!hasFrame) } />
+          </label>
+        </div>
+      </div>
       <button
         className="btn btn-lg btn-accent"
         disabled={!isFormValid()}
