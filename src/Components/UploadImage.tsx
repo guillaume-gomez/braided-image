@@ -8,13 +8,11 @@ interface UploadImageInterface {
 function UploadImage({onChange, image} : UploadImageInterface) {
   const [blackAndWhite, setBlackAndWhite] = useState<boolean>(false);
   const [bufferImage, setBufferImage] = useState<HTMLImageElement>();
+  const [bufferBlackAndWhite, setBufferBlackAndWhite] = useState<HTMLImageElement>();
 
   useEffect(() => {
-    if(blackAndWhite) {
-      const blackAndWhiteImage = toBlackAndWhite();
-      if(blackAndWhiteImage) {
-        onChange(blackAndWhiteImage);
-      }
+    if(blackAndWhite && bufferBlackAndWhite) {
+        onChange(bufferBlackAndWhite);
     } else {
       if(bufferImage) {
         onChange(bufferImage);
@@ -40,24 +38,21 @@ function UploadImage({onChange, image} : UploadImageInterface) {
   }
 
 
-  function toBlackAndWhite() : HTMLImageElement | undefined {
-    if(bufferImage) {
-      const canvas =  document.createElement("canvas");
-      canvas.width = bufferImage.width;
-      canvas.height = bufferImage.height;
+  function createBlackAndWhiteBuffer(image: HTMLImageElement) {
+    const canvas =  document.createElement("canvas");
+    canvas.width = image.width;
+    canvas.height = image.height;
 
-      const context = canvas.getContext("2d");
-      if(!context) {
-        return;
-      }
-      context.drawImage(bufferImage, 0,0, bufferImage.width, bufferImage.height);
-      // mutate context
-      convertToGrayScale(context, bufferImage.width, bufferImage.height);
-      const newBlackAndWhiteImage = new Image();
-      newBlackAndWhiteImage.onload = () => {};
-      newBlackAndWhiteImage.src = canvas.toDataURL();
-      return newBlackAndWhiteImage;
+    const context = canvas.getContext("2d");
+    if(!context) {
+      return;
     }
+    context.drawImage(image, 0,0, image.width, image.height);
+    // mutate context
+    convertToGrayScale(context, image.width, image.height);
+    const newBlackAndWhiteImage = new Image();
+    newBlackAndWhiteImage.onload = () => { setBufferBlackAndWhite(newBlackAndWhiteImage); };
+    newBlackAndWhiteImage.src = canvas.toDataURL();
   }
 
   function onChangeHandler(event:  React.ChangeEvent<HTMLInputElement>) {
@@ -67,6 +62,7 @@ function UploadImage({onChange, image} : UploadImageInterface) {
       image.onload =  (event: any) => {
         onChange(image);
         setBufferImage(image);
+        createBlackAndWhiteBuffer(image);
       };
     }
   }
