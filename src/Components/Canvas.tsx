@@ -100,7 +100,7 @@ function Canvas({ image1, image2, padding, wovenColor, hasFrame, knitSize = 50 }
       const format = "jpeg";
       const dataURL = canvasRef.current.toDataURL(`image/${format}`);
       const dateString = formatFns(new Date(), "dd-MM-yyyy-hh-mm");
-      (anchorRef.current as any).download = `${dateString}-image-in-images.${format}`;
+      (anchorRef.current as any).download = `${dateString}-woven-images.${format}`;
       anchorRef.current.href = dataURL.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
     }
   }
