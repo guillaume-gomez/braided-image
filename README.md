@@ -4,4 +4,10 @@ Select two images to weave them together
 
 # Examples
 
-[examples/coldWar/guerre_froide_usa_ursss](image1)
+![image_1](examples/coldWar/guerre_froide_usa_urss.jpeg)
++
+![image_2](examples/coldWar/marche-sur-la-lune.jpg)
+=
+![result](examples/coldWar/result1.jpeg)
+
+
