@@ -5,20 +5,21 @@ Select two images to weave them together
 # Examples
 
 ## 1
-
-![image_1](examples/coldWar/guerre_froide_usa_urss.jpg)
-+
-![image_2](examples/coldWar/marche-sur-la-lune.jpg)
-=
-![result](examples/coldWar/result1.jpeg)
+<div style="display: 'flex'; flex-direction:'row'">
+  <img src='examples/coldWar/guerre_froide_usa_urss.jpg' width="250px"/>
+  <span>+</span>
+  <img src='examples/coldWar/marche-sur-la-lune.jpg' width="250px"/>
+  <span>=</span>
+  <img src='examples/coldWar/result1.jpeg' width="250px"/>
+</div>
 
 ## 2
 
-![image_1](examples/films/2001-a-space-odyssey-i75298.jpg)
-+
-![image_2](examples/films/Solyaris_ussr_poster.jpg)
-=
-![result](examples/films/result2.jpeg)
-
-
+<div style="display: 'flex'; flex-direction:'row'">
+  <img src='examples/films/2001-a-space-odyssey-i75298.jpg' width="250px"/>
+  <span>+</span>
+  <img src='examples/films/Solyaris_ussr_poster.jpg' width="250px"/>
+  <span>=</span>
+  <img src='examples/films/result2.jpeg' width="250px"/>
+</div>
 
