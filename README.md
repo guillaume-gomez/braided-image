@@ -21,4 +21,13 @@ Select two images to weave them together
 ![result](examples/films/result2.jpeg)
 
 
+## 3
+
+![image_1](waste-beach-land-pollution-soil-water-health.webp)
++
+![image_2](examples/pollution/The_Blue_Marble_(remastered).jpg)
+=
+![result](examples/pollution/result3.jpeg)
+
+
 
