@@ -27,7 +27,7 @@ Select two images to weave them together
 ## 3
 
 <div style="display: 'flex'; flex-direction:'row'">
-  <img src='waste-beach-land-pollution-soil-water-health.webp' width="250px"/>
+  <img src='examples/pollution/waste-beach-land-pollution-soil-water-health.webp' width="250px"/>
   <span>+</span>
   <img src='examples/pollution/The_Blue_Marble_(remastered).jpg' width="250px"/>
   <span>=</span>
